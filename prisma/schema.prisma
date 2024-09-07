@@ -26,3 +26,22 @@ model User {
   password  String
   isMember  Boolean  @default(false)
 }
+
+//NEW MODELS BELOW: NEED TO MIGRATE
+
+model File {
+  id          Int     @id
+  name        String  @unique
+  size        Int
+  uploadTime  Int?
+  folder      Folder  @relation(fields: [folderId], references: [id])
+  folderId    Int     @unique
+}
+
+model Folder {
+  id     Int     @id
+  name   String  @unique
+  files  File[]
+}
+
+

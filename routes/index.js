@@ -59,7 +59,9 @@ router.get("/home", function (req, res) {
 
 router.get("/upload-file", function (req, res) {
   if (req.isAuthenticated()) {
-    res.render("uploadfile-form");
+    res.render("uploadfile-form", {
+      uploadSuccessful: "",
+    });
   } else {
     res.send("You are not authenticated");
   }
@@ -69,8 +71,11 @@ router.post(
   "/upload-file",
   upload.single("uploaded_file"),
   function (req, res, next) {
+    console.log("Upload successful:");
     console.log(req.file);
-    res.send("Upload successful");
+    res.render("uploadfile-form", {
+      uploadSuccessful: "Upload Sucessful, Select a file to upload another",
+    });
   },
 );
 
