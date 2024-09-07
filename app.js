@@ -14,10 +14,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// VIEWS
 // eslint-disable-next-line no-undef
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+// SESSION SETUP FOR LOGIN
 app.use(
   session({
     // eslint-disable-next-line no-undef
@@ -35,12 +37,15 @@ app.use(
   }),
 );
 
+// PASSPORT
 require("./auth-config/passport");
 app.use(passport.initialize());
 app.use(passport.session());
 
+// ROUTES
 app.use("/", indexRouter);
 
+// ERROR HANDLING
 app.use(function (req, res, next) {
   // set locals, only providing error in development
   next(createError(404));
@@ -55,6 +60,7 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
+// SET PORT
 // eslint-disable-next-line no-undef
 const port = process.env.PORT;
 app.listen(port, () => console.log(`Listening on port ${port}`));
