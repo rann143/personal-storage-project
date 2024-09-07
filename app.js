@@ -45,6 +45,16 @@ app.use(passport.session());
 // ROUTES
 app.use("/", indexRouter);
 
+// Access uploaded files
+app.use(
+  "/uploads/:filename",
+  //express.static(path.join(__dirname, "uploads")),
+  function (req, res, next) {
+    const filepath = path.join(__dirname, "uploads", req.params.filename);
+    res.sendFile(filepath);
+  },
+);
+
 // ERROR HANDLING
 app.use(function (req, res, next) {
   // set locals, only providing error in development

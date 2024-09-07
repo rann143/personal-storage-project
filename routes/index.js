@@ -74,17 +74,4 @@ router.post(
   },
 );
 
-router.get(
-  "/uploads/:filename",
-  // express.static(path.join(__dirname, "../uploads")),
-  function (req, res, next) {
-    const filepath = path.join(
-      "/Users/danielroderman/Desktop/Odin2/personal-storage-project/",
-      "uploads",
-      req.params.filename,
-    );
-    res.sendFile(filepath);
-  },
-);
-
 module.exports = router;
