@@ -3,6 +3,7 @@ const path = require("path");
 const router = require("express").Router();
 const passport = require("passport");
 const userController = require("../controllers/user-controller");
+const folderController = require("../controllers/folder-controller");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
@@ -42,7 +43,10 @@ router.post("/signup", userController.user_create_post);
 
 router.get("/home", function (req, res) {
   if (req.isAuthenticated()) {
-    res.render("home", {});
+    res.render("home", {
+      success: "",
+      errors: [],
+    });
   } else {
     res.send("You are not authenticated");
   }
@@ -69,5 +73,7 @@ router.post(
     });
   },
 );
+
+router.post("/home", folderController.add_folder_post);
 
 module.exports = router;

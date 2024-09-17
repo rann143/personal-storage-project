@@ -3,14 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/index.css" />
     <title>Home</title>
   </head>
   <body>
     <h1>Welcome to Your Personal Storage</h1>
-    <a href="/upload-file">Upload File</a>
+    <div class="container">
+      <div class="folders-section">
+        <div class="folder-list">
+          <h2>Folders</h2>
+          <ul>
+            <li>Folder 1</li>
+            <li>Folder 2</li>
+            <li>Folder 3</li>
+          </ul>
+        </div>
+        <form method="POST" class="add-folder-form">
+          <label for="folder-name-input"><strong>Add Folder:</strong></label>
+          <input
+            type="text"
+            name="folder_name"
+            id="folder-name-input"
+            placeholder="Folder Name"
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <div class="folder-contents">
+        <h2>Folder Title</h2>
+        <a href="/upload-file">Upload File</a>
+      </div>
+    </div>
+
     <br />
     <form method="post" action="/logout">
       <button type="submit">Logout</button>
     </form>
+
+    <% if (success) { %>
+    <p><%=success %></p>
+    <% } %>
+
+    <% if (errors) { %>
+    <ul>
+        <% errors.forEach(function(error) { %>
+            <li><%= error.msg %></li>
+        <% }); %>
+    </ul>
+    <% } %>
   </body>
 </html>

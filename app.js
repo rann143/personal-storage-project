@@ -8,11 +8,14 @@ const indexRouter = require("./routes/index");
 const q = require("./db/queries");
 
 require("dotenv").config();
+// Need to require the entire Passport config module so app.js knows about it
+require("./auth-config/passport");
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
 // VIEWS
 // eslint-disable-next-line no-undef
@@ -37,8 +40,11 @@ app.use(
   }),
 );
 
+app.use((req, res, next) => {
+  console.log(req.session);
+  next();
+});
 // PASSPORT
-require("./auth-config/passport");
 app.use(passport.initialize());
 app.use(passport.session());
 

@@ -42,9 +42,41 @@ async function createUser(username, password) {
   }
 }
 
+async function createFolder(name, userId) {
+  try {
+    await prisma.folder.create({
+      data: {
+        name: name,
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function getFolderByName(name) {
+  try {
+    const folder = await prisma.folder.findUnique({
+      where: {
+        name: name,
+      },
+    });
+    return folder;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   prisma,
   getUserById,
   getUserByUsername,
   createUser,
+  createFolder,
+  getFolderByName,
 };

@@ -46,7 +46,7 @@ exports.user_create_post = [
       console.log("username exists");
       res.render("signup-form", {
         userInfo: {},
-        errors: [],
+        errors: [{ msg: "Username Taken" }],
       });
     } else {
       bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
