@@ -40,15 +40,6 @@ router.get("/signup", function (req, res) {
 
 router.post("/signup", userController.user_create_post);
 
-// JUST PLACEHOLDER FOR SETUP
-// router.get("/protected-route", function (req, res) {
-//   if (req.isAuthenticated()) {
-//     res.render("protected-route");
-//   } else {
-//     res.send("You are not authenticated");
-//   }
-// });
-
 router.get("/home", function (req, res) {
   if (req.isAuthenticated()) {
     res.render("home", {});

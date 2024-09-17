@@ -55,7 +55,7 @@ exports.user_create_post = [
         }
 
         await q.createUser(req.body.username, hashedPassword);
-        res.redirect("/login-form");
+        res.redirect("/login");
       });
     }
   }),
