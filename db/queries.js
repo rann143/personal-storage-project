@@ -72,6 +72,19 @@ async function getFolderByName(name) {
   }
 }
 
+async function getAllFoldersForUser(user) {
+  try {
+    const folders = await prisma.folder.findMany({
+      where: {
+        userId: user,
+      },
+    });
+    return folders;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   prisma,
   getUserById,
@@ -79,4 +92,5 @@ module.exports = {
   createUser,
   createFolder,
   getFolderByName,
+  getAllFoldersForUser,
 };

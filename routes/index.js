@@ -41,16 +41,17 @@ router.get("/signup", function (req, res) {
 
 router.post("/signup", userController.user_create_post);
 
-router.get("/home", function (req, res) {
-  if (req.isAuthenticated()) {
-    res.render("home", {
-      success: "",
-      errors: [],
-    });
-  } else {
-    res.send("You are not authenticated");
-  }
-});
+router.get(
+  "/home",
+  function (req, res, next) {
+    if (req.isAuthenticated()) {
+      next();
+    } else {
+      res.send("You are not authenticated");
+    }
+  },
+  folderController.get_all_folders,
+);
 
 router.get("/upload-file", function (req, res) {
   if (req.isAuthenticated()) {

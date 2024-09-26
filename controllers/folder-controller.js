@@ -16,9 +16,11 @@ exports.add_folder_post = [
     };
 
     if (!errors.isEmpty()) {
+      const folders = await q.getAllFoldersForUser(req.session.passport.user);
       return res.render("home", {
         folderInfo: folderInfo,
         errors: errors.array(),
+        folders: folders,
       });
     }
 
@@ -27,18 +29,32 @@ exports.add_folder_post = [
 
     if (folderExists) {
       console.log("folder exists");
+      const folders = await q.getAllFoldersForUser(req.session.passport.user);
       res.render("home", {
         success: "",
         folderInfo: {},
         errors: [{ msg: "Folder with this name already exists" }],
+        folders: folders,
       });
     } else {
       await q.createFolder(req.body.folder_name, req.session.passport.user);
+      const folders = await q.getAllFoldersForUser(req.session.passport.user);
       res.render("home", {
         folderInfo: {},
         success: `'${req.body.folder_name}' folder added!`,
         errors: [],
+        folders: folders,
       });
     }
   }),
 ];
+
+exports.get_all_folders = asyncHandler(async (req, res, next) => {
+  const folders = await q.getAllFoldersForUser(req.session.passport.user);
+
+  res.render("home", {
+    success: "",
+    errors: [],
+    folders: folders,
+  });
+});

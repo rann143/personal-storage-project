@@ -12,11 +12,13 @@
       <div class="folders-section">
         <div class="folder-list">
           <h2>Folders</h2>
+          <% if (folders) { %>
           <ul>
-            <li>Folder 1</li>
-            <li>Folder 2</li>
-            <li>Folder 3</li>
+          <% folders.forEach((folder) => { %>
+            <li><a href=""><%= folder.name %></a></li>
+          <% }); %>
           </ul>
+          <% } %>
         </div>
         <form method="POST" class="add-folder-form">
           <label for="folder-name-input"><strong>Add Folder:</strong></label>
