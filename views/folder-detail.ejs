@@ -32,7 +32,9 @@
         </form>
       </div>
       <div class="folder-contents">
-        <h2>Home</h2>
+        <h2><%= selectedFolder.name%></h2>
+        <a href="/home/<%= selectedFolder.name %>/update">Edit</a>
+        <a href="/home/<%= selectedFolder.name %>/upload-file">Upload File</a>
       </div>
     </div>
 
@@ -41,16 +43,6 @@
       <button type="submit">Logout</button>
     </form>
 
-    <% if (success) { %>
-    <p><%=success %></p>
-    <% } %>
-
-    <% if (errors) { %>
-    <ul>
-        <% errors.forEach(function(error) { %>
-            <li><%= error.msg %></li>
-        <% }); %>
-    </ul>
-    <% } %>
+    
   </body>
 </html>

@@ -44,6 +44,10 @@ app.use((req, res, next) => {
   console.log(req.session);
   next();
 });
+app.use((req, res, next) => {
+  console.log(req.params);
+  next();
+});
 // PASSPORT
 app.use(passport.initialize());
 app.use(passport.session());

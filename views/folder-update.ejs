@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Folder</title>
+  </head>
+  <body>
+    <h1>Edit <%= folder.name%></h1>
+    <form method="POST" class="add-folder-form">
+      <label for="folder-name-input"><strong>Update Folder:</strong></label>
+      <input
+        type="text"
+        name="folder_name"
+        id="folder-name-input"
+        placeholder="Folder Name"
+      />
+      <button type="submit">Submit</button>
+    </form>
+    <form
+      action="/home/<%= folder.name %>/delete"
+      method="POST"
+      class="add-folder-form"
+    >
+      <label for="folder-name-input"><strong>Delete Folder:</strong></label>
+      <input
+        type="hidden"
+        name="folder"
+        id="folder-delete-input"
+        value="<%= folder.name %>"
+      />
+      <button type="submit">Delete Forever</button>
+    </form>
+  </body>
+</html>

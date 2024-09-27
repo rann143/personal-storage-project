@@ -6,6 +6,7 @@ const userController = require("../controllers/user-controller");
 const folderController = require("../controllers/folder-controller");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
+const q = require("../db/queries");
 
 router.get("/", function (req, res) {
   res.render("index", {});
@@ -53,7 +54,7 @@ router.get(
   folderController.get_all_folders,
 );
 
-router.get("/upload-file", function (req, res) {
+router.get("/home/:folder/upload-file", function (req, res) {
   if (req.isAuthenticated()) {
     res.render("uploadfile-form", {
       uploadSuccessful: "",
@@ -64,7 +65,7 @@ router.get("/upload-file", function (req, res) {
 });
 
 router.post(
-  "/upload-file",
+  "/home/:folder/upload-file",
   upload.single("uploaded_file"),
   function (req, res, next) {
     console.log("Upload successful:");
@@ -75,6 +76,32 @@ router.post(
   },
 );
 
-router.post("/home", folderController.add_folder_post);
+router.post("/home/:folder", folderController.add_folder_post);
+
+router.get(
+  "/home/:folder?",
+  function (req, res, next) {
+    if (req.isAuthenticated()) {
+      next();
+    } else {
+      res.send("You are not authenticated");
+    }
+  },
+  folderController.selected_folder_get,
+);
+
+router.get("/home/:folder/update", folderController.selected_folder_update_get);
+
+router.post(
+  "/home/:folder/update",
+  folderController.selected_folder_update_put,
+);
+
+// router.get("/home/:folder/delete", );
+
+router.post(
+  "/home/:folder/delete",
+  folderController.selected_folder_delete_post,
+);
 
 module.exports = router;

@@ -72,6 +72,28 @@ async function getFolderByName(name) {
   }
 }
 
+async function updateFolder(folderName, updateData) {
+  const updateFolder = await prisma.folder.update({
+    where: {
+      name: folderName,
+    },
+    data: updateData,
+  });
+  return updateFolder;
+}
+
+// This will have to be updated once files can be uploaded. Due to relation,
+// all files will need to be deleted first or moved to different folder before deletion
+async function deleteFolder(folderName) {
+  const deleteFolder = await prisma.folder.delete({
+    where: {
+      name: folderName,
+    },
+  });
+
+  return deleteFolder;
+}
+
 async function getAllFoldersForUser(user) {
   try {
     const folders = await prisma.folder.findMany({
@@ -85,6 +107,25 @@ async function getAllFoldersForUser(user) {
   }
 }
 
+async function createFile(name, size, uploadTime, folderId) {
+  try {
+    await prisma.file.create({
+      data: {
+        name: name,
+        size: size,
+        uploadTime: uploadTime,
+        folder: {
+          connect: {
+            id: folderId,
+          },
+        },
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   prisma,
   getUserById,
@@ -93,4 +134,6 @@ module.exports = {
   createFolder,
   getFolderByName,
   getAllFoldersForUser,
+  updateFolder,
+  deleteFolder,
 };
