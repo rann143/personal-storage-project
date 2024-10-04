@@ -5,7 +5,12 @@ const passport = require("passport");
 const userController = require("../controllers/user-controller");
 const folderController = require("../controllers/folder-controller");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const upload = multer({
+  dest: "uploads/",
+  limits: {
+    fileSize: 100000000,
+  },
+});
 const q = require("../db/queries");
 
 router.get("/", function (req, res) {
@@ -64,6 +69,7 @@ router.get("/home/:folder/upload-file", function (req, res) {
   }
 });
 
+// *******************************************************************************************************
 // router.post(
 //   "/home/:folder/upload-file",
 //   upload.single("uploaded_file"),
@@ -75,10 +81,14 @@ router.get("/home/:folder/upload-file", function (req, res) {
 //     });
 //   },
 // );
+
+// WORK ON NEXT
 router.post(
   "/home/:folder/upload-file",
+  upload.single("uploaded_file"),
   folderController.upload_to_folder_post,
 );
+// *******************************************************************************************************
 
 router.post("/home/:folder", folderController.add_folder_post);
 

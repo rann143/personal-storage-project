@@ -131,15 +131,23 @@ exports.selected_folder_delete_post = asyncHandler(async (req, res, next) => {
   res.redirect("/home/");
 });
 
+// WORK ON NEXT THIS NEEDS TO BE WORKED ON BELOW
+// *******************************************************************************************************
 exports.upload_to_folder_post = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
-  await uploadFile();
-  res.render("uploadfile-form", {
-    uploadSuccessful: "Upload Sucessful, Select a file to upload another",
-  });
+  console.log(req.file);
+  if (req.file.path || req.file.path !== "undefined") {
+    await uploadFile(req.file.path);
+  } else {
+    console.error("No file found");
+    res.render("uploadfile-form", {
+      uploadSuccessful: "An Error Occured With Your Upload",
+    });
+  }
+
+  res.redirect("/home");
 });
 
-async function uploadFile() {
+async function uploadFile(filepath) {
   // Config
   cloudinary.config({
     secure: true,
@@ -149,11 +157,10 @@ async function uploadFile() {
   });
 
   try {
-    const uploadResult = await cloudinary.uploader.upload(
-      "/Users/danielroderman/Downloads/capybara.jpeg",
-    );
+    const uploadResult = await cloudinary.uploader.upload(filepath);
     console.log(uploadResult);
   } catch (error) {
     console.log(error);
   }
 }
+// *******************************************************************************************************
