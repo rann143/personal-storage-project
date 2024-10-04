@@ -59,7 +59,7 @@ router.get(
   folderController.get_all_folders,
 );
 
-router.get("/home/:folder/upload-file", function (req, res) {
+router.get("/home/:folder/:folderId/upload-file", function (req, res) {
   if (req.isAuthenticated()) {
     res.render("uploadfile-form", {
       uploadSuccessful: "",
@@ -81,19 +81,19 @@ router.get("/home/:folder/upload-file", function (req, res) {
 //     });
 //   },
 // );
+// *******************************************************************************************************
 
 // WORK ON NEXT
 router.post(
-  "/home/:folder/upload-file",
+  "/home/:folder/:folderId/upload-file",
   upload.single("uploaded_file"),
   folderController.upload_to_folder_post,
 );
-// *******************************************************************************************************
 
-router.post("/home/:folder", folderController.add_folder_post);
+router.post("/home/:folder?/:folderId?", folderController.add_folder_post);
 
 router.get(
-  "/home/:folder?",
+  "/home/:folder?/:folderId?",
   function (req, res, next) {
     if (req.isAuthenticated()) {
       next();
@@ -104,15 +104,18 @@ router.get(
   folderController.selected_folder_get,
 );
 
-router.get("/home/:folder/update", folderController.selected_folder_update_get);
+router.get(
+  "/home/:folder/:folderId?/update",
+  folderController.selected_folder_update_get,
+);
 
 router.post(
-  "/home/:folder/update",
+  "/home/:folder/:folderId?/update",
   folderController.selected_folder_update_put,
 );
 
 router.post(
-  "/home/:folder/delete",
+  "/home/:folder/:folderId?/delete",
   folderController.selected_folder_delete_post,
 );
 

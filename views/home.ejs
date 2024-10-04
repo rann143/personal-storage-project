@@ -15,7 +15,7 @@
           <% if (folders) { %>
           <ul>
           <% folders.forEach((folder) => { %>
-            <li><a href="/home/<%= folder.name %>"><%= folder.name %></a></li>
+            <li><a href="/home/<%= folder.name %>/<%= folder.id %>"><%= folder.name %></a></li>
           <% }); %>
           </ul>
           <% } %>

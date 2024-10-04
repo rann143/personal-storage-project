@@ -35,6 +35,9 @@ async function createUser(username, password) {
         username: username,
         password: password,
         isMember: true,
+        folders: {
+          create: [],
+        },
       },
     });
   } catch (err) {
@@ -51,6 +54,9 @@ async function createFolder(name, userId) {
           connect: {
             id: userId,
           },
+        },
+        files: {
+          create: [],
         },
       },
     });
@@ -122,7 +128,7 @@ async function createFile(name, size, uploadTime, folderId) {
       },
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -136,4 +142,5 @@ module.exports = {
   getAllFoldersForUser,
   updateFolder,
   deleteFolder,
+  createFile,
 };
