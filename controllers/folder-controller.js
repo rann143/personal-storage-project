@@ -1,6 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const q = require("../db/queries");
+const cloudinary = require("cloudinary").v2;
+
+require("dotenv").config();
 
 exports.add_folder_post = [
   body("folder_name", "must enter folder name")
@@ -123,9 +126,34 @@ exports.selected_folder_update_put = [
   }),
 ];
 
-// exports.selected_folder_delete_get;
-
 exports.selected_folder_delete_post = asyncHandler(async (req, res, next) => {
   await q.deleteFolder(req.body.folder);
   res.redirect("/home/");
 });
+
+exports.upload_to_folder_post = asyncHandler(async (req, res, next) => {
+  console.log(req.body);
+  await uploadFile();
+  res.render("uploadfile-form", {
+    uploadSuccessful: "Upload Sucessful, Select a file to upload another",
+  });
+});
+
+async function uploadFile() {
+  // Config
+  cloudinary.config({
+    secure: true,
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+
+  try {
+    const uploadResult = await cloudinary.uploader.upload(
+      "/Users/danielroderman/Downloads/capybara.jpeg",
+    );
+    console.log(uploadResult);
+  } catch (error) {
+    console.log(error);
+  }
+}

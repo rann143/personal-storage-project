@@ -6,6 +6,7 @@ const path = require("path");
 const passport = require("passport");
 const indexRouter = require("./routes/index");
 const q = require("./db/queries");
+const cloudinary = require("cloudinary").v2;
 
 require("dotenv").config();
 // Need to require the entire Passport config module so app.js knows about it
@@ -40,14 +41,14 @@ app.use(
   }),
 );
 
-app.use((req, res, next) => {
-  console.log(req.session);
-  next();
-});
-app.use((req, res, next) => {
-  console.log(req.params);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(req.session);
+//   next();
+// });
+// app.use((req, res, next) => {
+//   console.log(req.params);
+//   next();
+// });
 // PASSPORT
 app.use(passport.initialize());
 app.use(passport.session());

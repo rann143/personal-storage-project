@@ -64,16 +64,20 @@ router.get("/home/:folder/upload-file", function (req, res) {
   }
 });
 
+// router.post(
+//   "/home/:folder/upload-file",
+//   upload.single("uploaded_file"),
+//   function (req, res, next) {
+//     console.log("Upload successful:");
+//     console.log(req.file);
+//     res.render("uploadfile-form", {
+//       uploadSuccessful: "Upload Sucessful, Select a file to upload another",
+//     });
+//   },
+// );
 router.post(
   "/home/:folder/upload-file",
-  upload.single("uploaded_file"),
-  function (req, res, next) {
-    console.log("Upload successful:");
-    console.log(req.file);
-    res.render("uploadfile-form", {
-      uploadSuccessful: "Upload Sucessful, Select a file to upload another",
-    });
-  },
+  folderController.upload_to_folder_post,
 );
 
 router.post("/home/:folder", folderController.add_folder_post);
@@ -96,8 +100,6 @@ router.post(
   "/home/:folder/update",
   folderController.selected_folder_update_put,
 );
-
-// router.get("/home/:folder/delete", );
 
 router.post(
   "/home/:folder/delete",
