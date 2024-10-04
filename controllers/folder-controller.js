@@ -27,6 +27,7 @@ exports.add_folder_post = [
         errors: errors.array(),
         folders: folders,
         user: user,
+        success: "",
       });
     }
 
@@ -47,7 +48,7 @@ exports.add_folder_post = [
     } else {
       await q.createFolder(req.body.folder_name, req.session.passport.user);
 
-      res.redirect("/home");
+      res.redirect("/home/");
     }
   }),
 ];
@@ -128,8 +129,9 @@ exports.selected_folder_update_put = [
 ];
 
 exports.selected_folder_delete_post = asyncHandler(async (req, res, next) => {
+  console.log(req.body.folder);
   await q.deleteFolder(req.body.folder);
-  res.redirect("/home/");
+  res.redirect("/home");
 });
 
 // WORK ON NEXT THIS NEEDS TO BE WORKED ON BELOW
