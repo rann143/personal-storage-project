@@ -79,6 +79,19 @@ async function getFolderByName(name, userId) {
   }
 }
 
+async function getFolderById(folderId) {
+  try {
+    const folder = await prisma.folder.findUnique({
+      where: {
+        id: folderId,
+      },
+    });
+    return folder;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 async function updateFolder(folderName, updateData) {
   const updateFolder = await prisma.folder.update({
     where: {
