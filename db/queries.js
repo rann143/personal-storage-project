@@ -141,6 +141,19 @@ async function createFile(name, size, uploadTime, folderId) {
   }
 }
 
+async function getAllFilesInFolder(folderId) {
+  try {
+    const files = await prisma.file.findMany({
+      where: {
+        folderId: folderId,
+      },
+    });
+    return files;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   prisma,
   getUserById,

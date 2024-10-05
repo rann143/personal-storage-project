@@ -152,8 +152,6 @@ exports.selected_folder_delete_post = asyncHandler(async (req, res, next) => {
   res.redirect("/home");
 });
 
-// WORK ON NEXT THIS NEEDS TO BE WORKED ON BELOW
-// *******************************************************************************************************
 exports.upload_to_folder_post = asyncHandler(async (req, res, next) => {
   console.log(req.file);
   if (req.file.path || req.file.path !== "undefined") {
@@ -192,4 +190,3 @@ async function uploadFile(filepath, folderId, folderName) {
     console.log(error);
   }
 }
-// *******************************************************************************************************
