@@ -31,7 +31,7 @@ exports.add_folder_post = [
       });
     }
 
-    const folderExists = await q.getFolderByName(
+    const folderExists = await q.getFolderByUniqueConstraint(
       req.body.folder_name,
       req.session.passport.user,
     );
@@ -70,7 +70,7 @@ exports.get_all_folders = asyncHandler(async (req, res, next) => {
 
 exports.selected_folder_get = asyncHandler(async (req, res, next) => {
   const folders = await q.getAllFoldersForUser(req.session.passport.user);
-  const folder = await q.getFolderByName(
+  const folder = await q.getFolderByUniqueConstraint(
     req.params.folder,
     req.session.passport.user,
   );
@@ -83,7 +83,7 @@ exports.selected_folder_get = asyncHandler(async (req, res, next) => {
 });
 
 exports.selected_folder_update_get = asyncHandler(async (req, res, next) => {
-  const folder = await q.getFolderByName(
+  const folder = await q.getFolderByUniqueConstraint(
     req.params.folder,
     req.session.passport.user,
   );
@@ -105,7 +105,7 @@ exports.selected_folder_update_put = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      const folder = await q.getFolderByName(
+      const folder = await q.getFolderByUniqueConstraint(
         req.params.folder,
         req.session.passport.user,
       );
@@ -117,7 +117,7 @@ exports.selected_folder_update_put = [
       });
     }
 
-    const folderExists = await q.getFolderByName(
+    const folderExists = await q.getFolderByUniqueConstraint(
       req.body.folder_name,
       req.session.passport.user,
     );
@@ -125,7 +125,7 @@ exports.selected_folder_update_put = [
 
     if (folderExists) {
       console.log("folder exists");
-      const folder = await q.getFolderByName(
+      const folder = await q.getFolderByUniqueConstraint(
         req.params.folder,
         req.session.passport.user,
       );
@@ -137,7 +137,7 @@ exports.selected_folder_update_put = [
         user: user,
       });
     } else {
-      await q.updateFolder(req.params.folder, {
+      await q.updateFolder(req.params.folder, req.session.passport.user, {
         name: req.body.folder_name,
       });
 
@@ -148,7 +148,7 @@ exports.selected_folder_update_put = [
 
 exports.selected_folder_delete_post = asyncHandler(async (req, res, next) => {
   console.log(req.body.folder);
-  await q.deleteFolder(req.body.folder);
+  await q.deleteFolder(req.body.folder, req.session.passport.user);
   res.redirect("/home");
 });
 

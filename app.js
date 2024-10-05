@@ -24,17 +24,19 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // SESSION SETUP FOR LOGIN
+const sessionStore = new PrismaSessionStore(q.prisma, {
+  checkPeriod: 2 * 60 * 1000, // ms
+  dbRecordIdIsSessionId: true,
+  dbRecordIdFunction: undefined,
+});
+
 app.use(
   session({
     // eslint-disable-next-line no-undef
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
-    store: new PrismaSessionStore(q.prisma, {
-      checkPeriod: 2 * 60 * 1000, // ms
-      dbRecordIdIsSessionId: true,
-      dbRecordIdFunction: undefined,
-    }),
+    store: sessionStore,
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000, // ms
     },

@@ -65,12 +65,14 @@ async function createFolder(name, userId) {
   }
 }
 
-async function getFolderByName(name, userId) {
+async function getFolderByUniqueConstraint(name, userId) {
   try {
     const folder = await prisma.folder.findUnique({
       where: {
-        name: name,
-        userId: userId,
+        folderUnique: {
+          name: name,
+          userId: userId,
+        },
       },
     });
     return folder;
@@ -79,23 +81,13 @@ async function getFolderByName(name, userId) {
   }
 }
 
-async function getFolderById(folderId) {
-  try {
-    const folder = await prisma.folder.findUnique({
-      where: {
-        id: folderId,
-      },
-    });
-    return folder;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-async function updateFolder(folderName, updateData) {
+async function updateFolder(folderName, userId, updateData) {
   const updateFolder = await prisma.folder.update({
     where: {
-      name: folderName,
+      folderUnique: {
+        name: folderName,
+        userId: userId,
+      },
     },
     data: updateData,
   });
@@ -104,10 +96,13 @@ async function updateFolder(folderName, updateData) {
 
 // This will have to be updated once files can be uploaded. Due to relation,
 // all files will need to be deleted first or moved to different folder before deletion
-async function deleteFolder(folderName) {
+async function deleteFolder(folderName, userId) {
   const deleteFolder = await prisma.folder.delete({
     where: {
-      name: folderName,
+      folderUnique: {
+        name: folderName,
+        userId: userId,
+      },
     },
   });
 
@@ -152,7 +147,7 @@ module.exports = {
   getUserByUsername,
   createUser,
   createFolder,
-  getFolderByName,
+  getFolderByUniqueConstraint,
   getAllFoldersForUser,
   updateFolder,
   deleteFolder,
