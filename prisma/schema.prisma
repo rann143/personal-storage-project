@@ -30,11 +30,13 @@ model User {
 
 model File {
   id          Int     @id @default(autoincrement())
-  name        String  @unique
+  name        String  
   size        Int
   uploadTime  Int?
   folder      Folder  @relation(fields: [folderId], references: [id])
-  folderId    Int     @unique
+  folderId    Int     
+
+  @@unique(name: "fileUnique",[name, folderId])
 }
 
 model Folder {
