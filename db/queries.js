@@ -65,11 +65,12 @@ async function createFolder(name, userId) {
   }
 }
 
-async function getFolderByName(name) {
+async function getFolderByName(name, userId) {
   try {
     const folder = await prisma.folder.findUnique({
       where: {
         name: name,
+        userId: userId,
       },
     });
     return folder;

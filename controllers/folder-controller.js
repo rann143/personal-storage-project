@@ -31,7 +31,10 @@ exports.add_folder_post = [
       });
     }
 
-    const folderExists = await q.getFolderByName(req.body.folder_name);
+    const folderExists = await q.getFolderByName(
+      req.body.folder_name,
+      req.session.passport.user,
+    );
     console.log(folderExists);
 
     if (folderExists) {
@@ -67,7 +70,10 @@ exports.get_all_folders = asyncHandler(async (req, res, next) => {
 
 exports.selected_folder_get = asyncHandler(async (req, res, next) => {
   const folders = await q.getAllFoldersForUser(req.session.passport.user);
-  const folder = await q.getFolderByName(req.params.folder);
+  const folder = await q.getFolderByName(
+    req.params.folder,
+    req.session.passport.user,
+  );
   const user = await q.getUserById(req.session.passport.user);
   res.render("folder-detail", {
     folders: folders,
@@ -77,7 +83,10 @@ exports.selected_folder_get = asyncHandler(async (req, res, next) => {
 });
 
 exports.selected_folder_update_get = asyncHandler(async (req, res, next) => {
-  const folder = await q.getFolderByName(req.params.folder);
+  const folder = await q.getFolderByName(
+    req.params.folder,
+    req.session.passport.user,
+  );
   const user = await q.getUserById(req.session.passport.user);
 
   res.render("folder-update", {
@@ -96,7 +105,10 @@ exports.selected_folder_update_put = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      const folder = await q.getFolderByName(req.params.folder);
+      const folder = await q.getFolderByName(
+        req.params.folder,
+        req.session.passport.user,
+      );
       const user = await q.getUserById(req.session.passport.user);
       return res.render("folder-update", {
         errors: errors.array(),
@@ -105,12 +117,18 @@ exports.selected_folder_update_put = [
       });
     }
 
-    const folderExists = await q.getFolderByName(req.body.folder_name);
+    const folderExists = await q.getFolderByName(
+      req.body.folder_name,
+      req.session.passport.user,
+    );
     console.log(folderExists);
 
     if (folderExists) {
       console.log("folder exists");
-      const folder = await q.getFolderByName(req.params.folder);
+      const folder = await q.getFolderByName(
+        req.params.folder,
+        req.session.passport.user,
+      );
       const user = await q.getUserById(req.session.passport.user);
       res.render("folder-update", {
         success: "",
