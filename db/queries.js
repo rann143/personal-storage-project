@@ -145,7 +145,7 @@ async function getAllFilesInFolder(folderId) {
   try {
     const files = await prisma.file.findMany({
       where: {
-        folderId: folderId,
+        folderId: Number(folderId),
       },
     });
     return files;
@@ -165,4 +165,5 @@ module.exports = {
   updateFolder,
   deleteFolder,
   createFile,
+  getAllFilesInFolder,
 };

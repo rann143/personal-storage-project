@@ -75,10 +75,12 @@ exports.selected_folder_get = asyncHandler(async (req, res, next) => {
     req.session.passport.user,
   );
   const user = await q.getUserById(req.session.passport.user);
+  const files = await q.getAllFilesInFolder(req.params.folderId);
   res.render("folder-detail", {
     folders: folders,
     selectedFolder: folder,
     user: user,
+    files: files,
   });
 });
 
@@ -190,3 +192,7 @@ async function uploadFile(filepath, folderId, folderName) {
     console.log(error);
   }
 }
+
+// exports.get_all_files_in_folder = asyncHandler(async (req, res, next) => {
+
+// })

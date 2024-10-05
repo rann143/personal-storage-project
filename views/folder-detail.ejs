@@ -15,7 +15,7 @@
           <% if (folders) { %>
           <ul>
           <% folders.forEach((folder) => { %>
-            <li><a href="/home/<%= folder.name %>"><%= folder.name %></a></li>
+            <li><a href="/home/<%= folder.name %>/<%= folder.id %>"><%= folder.name %></a></li>
           <% }); %>
           </ul>
           <% } %>
@@ -33,6 +33,13 @@
       </div>
       <div class="folder-contents">
         <h2><%= selectedFolder.name%></h2>
+        <% if (files) { %>
+          <ul>
+          <% files.forEach((file) => { %>
+            <li><a href="<%= file.name %>"><%= file.name %></a></li>
+          <% }); %>
+          </ul>
+          <% } %>
         <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/update">Edit</a>
         <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/upload-file">Upload File</a>
       </div>
