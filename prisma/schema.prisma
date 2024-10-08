@@ -31,6 +31,7 @@ model User {
 model File {
   id          Int     @id @default(autoincrement())
   name        String  
+  link        String  
   size        Int
   uploadTime  Int?
   folder      Folder  @relation(fields: [folderId], references: [id])

@@ -157,7 +157,7 @@ exports.selected_folder_delete_post = asyncHandler(async (req, res, next) => {
 exports.upload_to_folder_post = asyncHandler(async (req, res, next) => {
   console.log(req.file);
   if (req.file.path || req.file.path !== "undefined") {
-    await uploadFile(req.file.path, req.params.folderId);
+    await uploadFile(req.file.path, req.params.folderId, req.file.fieldname);
   } else {
     console.error("No file found");
     res.render("uploadfile-form", {
@@ -168,7 +168,7 @@ exports.upload_to_folder_post = asyncHandler(async (req, res, next) => {
   res.redirect("/home");
 });
 
-async function uploadFile(filepath, folderId, folderName) {
+async function uploadFile(filepath, folderId, fileName) {
   const folder = Number(folderId);
   // Config
   cloudinary.config({
@@ -181,6 +181,7 @@ async function uploadFile(filepath, folderId, folderName) {
   try {
     const uploadResult = await cloudinary.uploader.upload(filepath);
     const newFile = await q.createFile(
+      fileName,
       uploadResult.secure_url,
       uploadResult.bytes,
       5,
@@ -193,6 +194,6 @@ async function uploadFile(filepath, folderId, folderName) {
   }
 }
 
-// exports.get_all_files_in_folder = asyncHandler(async (req, res, next) => {
+// exports.download_file_get = asyncHandler(async (req, res, next) => {
 
 // })

@@ -122,11 +122,12 @@ async function getAllFoldersForUser(user) {
   }
 }
 
-async function createFile(name, size, uploadTime, folderId) {
+async function createFile(name, link, size, uploadTime, folderId) {
   try {
     await prisma.file.create({
       data: {
         name: name,
+        link: link,
         size: size,
         uploadTime: uploadTime,
         folder: {
