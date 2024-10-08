@@ -69,21 +69,6 @@ router.get("/home/:folder/:folderId/upload-file", function (req, res) {
   }
 });
 
-// *******************************************************************************************************
-// router.post(
-//   "/home/:folder/upload-file",
-//   upload.single("uploaded_file"),
-//   function (req, res, next) {
-//     console.log("Upload successful:");
-//     console.log(req.file);
-//     res.render("uploadfile-form", {
-//       uploadSuccessful: "Upload Sucessful, Select a file to upload another",
-//     });
-//   },
-// );
-// *******************************************************************************************************
-
-// WORK ON NEXT
 router.post(
   "/home/:folder/:folderId/upload-file",
   upload.single("uploaded_file"),
@@ -118,5 +103,7 @@ router.post(
   "/home/:folder/:folderId?/delete",
   folderController.selected_folder_delete_post,
 );
+
+router.get("/download/:fileName", folderController.download_file_get);
 
 module.exports = router;

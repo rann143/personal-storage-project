@@ -3,6 +3,9 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const q = require("../db/queries");
 const cloudinary = require("cloudinary").v2;
+const https = require("https");
+const fs = require("fs");
+const path = require("path");
 
 require("dotenv").config();
 
@@ -157,7 +160,7 @@ exports.selected_folder_delete_post = asyncHandler(async (req, res, next) => {
 exports.upload_to_folder_post = asyncHandler(async (req, res, next) => {
   console.log(req.file);
   if (req.file.path || req.file.path !== "undefined") {
-    await uploadFile(req.file.path, req.params.folderId, req.file.fieldname);
+    await uploadFile(req.file.path, req.params.folderId, req.file.originalname);
   } else {
     console.error("No file found");
     res.render("uploadfile-form", {
@@ -165,7 +168,7 @@ exports.upload_to_folder_post = asyncHandler(async (req, res, next) => {
     });
   }
 
-  res.redirect("/home");
+  res.redirect(`/home/${req.params.folder}/${req.params.folderId}`);
 });
 
 async function uploadFile(filepath, folderId, fileName) {
@@ -194,6 +197,47 @@ async function uploadFile(filepath, folderId, fileName) {
   }
 }
 
-// exports.download_file_get = asyncHandler(async (req, res, next) => {
+exports.download_file_get = asyncHandler(async (req, res, next) => {
+  const fileUrl = req.query.myFile;
 
-// })
+  // Validate the input URL
+  if (!fileUrl) {
+    return res.status(400).send("URL parameter is required");
+  }
+
+  const filePath = path.join(__dirname, req.params.fileName);
+  const file = fs.createWriteStream(filePath);
+
+  // Send a GET request to download the image
+  https
+    .get(fileUrl, (response) => {
+      if (response.statusCode !== 200) {
+        res
+          .status(response.statusCode)
+          .send(`Failed to download file: ${response.statusMessage}`);
+        return;
+      }
+
+      response.pipe(file);
+
+      file.on("finish", () => {
+        file.close();
+        res.download(filePath, req.params.fileName, (err) => {
+          if (err) {
+            console.error("Error downloading the file:", err);
+          } else {
+            console.log(`Download Completed: ${req.params.fileName}`);
+          }
+        });
+      });
+    })
+    .on("error", (err) => {
+      console.error("Error during HTTP request:", err);
+      res.status(500).send("Error downloading the file");
+    });
+
+  file.on("error", (err) => {
+    console.error(`Error writing to file: ${err.message}`);
+    fs.unlink(filePath, () => {});
+  });
+});
