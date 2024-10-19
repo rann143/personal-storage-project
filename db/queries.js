@@ -180,4 +180,5 @@ module.exports = {
   deleteFolder,
   createFile,
   getAllFilesInFolder,
+  deleteFile,
 };

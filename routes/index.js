@@ -104,6 +104,16 @@ router.post(
   folderController.selected_folder_delete_post,
 );
 
+router.get(
+  "/home/:folder/:folderId?/:fileName?/details",
+  folderController.file_detail,
+);
+
+router.post(
+  "/home/:folder/:folderId?/:fileName?/details",
+  folderController.file_delete,
+);
+
 router.get("/download/:fileName", folderController.download_file_get);
 
 module.exports = router;

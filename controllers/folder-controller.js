@@ -157,6 +157,16 @@ exports.selected_folder_delete_post = asyncHandler(async (req, res, next) => {
   res.redirect("/home");
 });
 
+exports.file_detail = asyncHandler(async (req, res, next) => {
+  res.send("GET route incomplete - will get file details");
+});
+
+exports.file_delete = asyncHandler(async (req, res, next) => {
+  console.log(req.body.thisFile);
+  await q.deleteFile(req.body.thisFile, req.params.folderId);
+  res.redirect("/home");
+});
+
 exports.upload_to_folder_post = asyncHandler(async (req, res, next) => {
   console.log(req.file);
   if (req.file.path || req.file.path !== "undefined") {
