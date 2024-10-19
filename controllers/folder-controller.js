@@ -183,11 +183,12 @@ async function uploadFile(filepath, folderId, fileName) {
 
   try {
     const uploadResult = await cloudinary.uploader.upload(filepath);
+    const currentTime = new Date().toLocaleString();
     const newFile = await q.createFile(
       fileName,
       uploadResult.secure_url,
       uploadResult.bytes,
-      5,
+      currentTime,
       folder,
     );
     console.log(uploadResult);

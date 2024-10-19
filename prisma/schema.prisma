@@ -33,7 +33,7 @@ model File {
   name        String  
   link        String  
   size        Int
-  uploadTime  Int?
+  uploadTime  String
   folder      Folder  @relation(fields: [folderId], references: [id])
   folderId    Int     
 
