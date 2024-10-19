@@ -142,6 +142,19 @@ async function createFile(name, link, size, uploadTime, folderId) {
   }
 }
 
+async function deleteFile(fileName, folderId) {
+  const deleteFile = await prisma.folder.delete({
+    where: {
+      fileUnique: {
+        name: fileName,
+        folderId: folderId,
+      },
+    },
+  });
+
+  return deleteFile;
+}
+
 async function getAllFilesInFolder(folderId) {
   try {
     const files = await prisma.file.findMany({
