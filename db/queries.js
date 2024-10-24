@@ -168,6 +168,19 @@ async function getAllFilesInFolder(folderId) {
   }
 }
 
+async function getFileDetail(fileName, folderId) {
+  const file = await prisma.file.findUnique({
+    where: {
+      fileUnique: {
+        name: fileName,
+        folderId: folderId,
+      },
+    },
+  });
+
+  return file;
+}
+
 module.exports = {
   prisma,
   getUserById,
@@ -181,4 +194,5 @@ module.exports = {
   createFile,
   getAllFilesInFolder,
   deleteFile,
+  getFileDetail,
 };
