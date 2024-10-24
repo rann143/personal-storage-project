@@ -8,12 +8,18 @@ const path = require("path");
 require("dotenv").config();
 
 exports.file_detail = asyncHandler(async (req, res, next) => {
-  res.send("GET route incomplete - will get file details");
+  const folderId = parseInt(req.params.folderId);
+  const file = await q.getFileDetail(req.params.fileName, folderId);
+
+  res.render("file-detail", {
+    file: file,
+  });
 });
 
 exports.file_delete = asyncHandler(async (req, res, next) => {
   console.log(req.body.thisFile);
-  await q.deleteFile(req.body.thisFile, req.params.folderId);
+  const folderId = parseInt(req.params.folderId);
+  await q.deleteFile(req.body.thisFile, folderId);
   res.redirect("/home");
 });
 
