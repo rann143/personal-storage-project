@@ -1,12 +1,10 @@
 /* eslint-disable no-undef */
 const asyncHandler = require("express-async-handler");
-const { body, validationResult } = require("express-validator");
 const q = require("../db/queries");
 const cloudinary = require("cloudinary").v2;
 const https = require("https");
 const fs = require("fs");
 const path = require("path");
-
 require("dotenv").config();
 
 exports.file_detail = asyncHandler(async (req, res, next) => {
@@ -33,6 +31,7 @@ exports.upload_file_to_folder_post = asyncHandler(async (req, res, next) => {
   res.redirect(`/home/${req.params.folder}/${req.params.folderId}`);
 });
 
+// Function use in upload_file_to_folder_post function
 async function uploadFile(filepath, folderId, fileName) {
   const folder = Number(folderId);
   // Config
