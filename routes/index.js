@@ -13,10 +13,12 @@ const upload = multer({
 });
 const q = require("../db/queries");
 
+// Index Route
 router.get("/", function (req, res) {
   res.render("index", {});
 });
 
+// LOGIN & LOGOUT ROUTES
 router.get("/login", function (req, res) {
   res.render("login-form", {});
 });
@@ -38,6 +40,7 @@ router.post("/logout", (req, res, next) => {
   res.redirect("/");
 });
 
+// SIGN UP ROUTES
 router.get("/signup", function (req, res) {
   res.render("signup-form", {
     userInfo: {},
@@ -47,6 +50,7 @@ router.get("/signup", function (req, res) {
 
 router.post("/signup", userController.user_create_post);
 
+// HOME ROUTE
 router.get(
   "/home",
   function (req, res, next) {
@@ -59,6 +63,7 @@ router.get(
   folderController.get_all_folders,
 );
 
+// UPLOAD FILE ROUTE (GET)
 router.get("/home/:folder/:folderId/upload-file", function (req, res) {
   if (req.isAuthenticated()) {
     res.render("uploadfile-form", {
@@ -69,14 +74,17 @@ router.get("/home/:folder/:folderId/upload-file", function (req, res) {
   }
 });
 
+// UPLOAD FILE ROUTE (POST)
 router.post(
   "/home/:folder/:folderId/upload-file",
   upload.single("uploaded_file"),
   folderController.upload_to_folder_post,
 );
 
+// ADD FOLDER ROUTE (POST)
 router.post("/home/:folder?/:folderId?", folderController.add_folder_post);
 
+// SELECTED FOLDER ROUTE (GET)
 router.get(
   "/home/:folder?/:folderId?",
   function (req, res, next) {
@@ -89,31 +97,37 @@ router.get(
   folderController.selected_folder_get,
 );
 
+// UPDATE FOLDER FORM PAGE (GET)
 router.get(
   "/home/:folder/:folderId?/update",
   folderController.selected_folder_update_get,
 );
 
+// UPDATE FOLDER FORM PAGE (POST)
 router.post(
   "/home/:folder/:folderId?/update",
   folderController.selected_folder_update_put,
 );
 
+// DELETE FOLDER ROUTE
 router.post(
   "/home/:folder/:folderId?/delete",
   folderController.selected_folder_delete_post,
 );
 
+// FILE DETAIL ROUTE (GET)
 router.get(
   "/home/:folder/:folderId?/:fileName?/details",
   folderController.file_detail,
 );
 
+// FILE DETAIL PAGE (DELETE POST)
 router.post(
   "/home/:folder/:folderId?/:fileName?/details",
   folderController.file_delete,
 );
 
+// FILE DOWNLOAD ROUTE (GET)
 router.get("/download/:fileName", folderController.download_file_get);
 
 module.exports = router;
