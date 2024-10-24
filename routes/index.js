@@ -4,6 +4,7 @@ const router = require("express").Router();
 const passport = require("passport");
 const userController = require("../controllers/user-controller");
 const folderController = require("../controllers/folder-controller");
+const fileController = require("../controllers/file-controller");
 const multer = require("multer");
 const upload = multer({
   dest: "uploads/",
@@ -11,7 +12,6 @@ const upload = multer({
     fileSize: 100000000,
   },
 });
-const q = require("../db/queries");
 
 // Index Route
 router.get("/", function (req, res) {
@@ -78,7 +78,7 @@ router.get("/home/:folder/:folderId/upload-file", function (req, res) {
 router.post(
   "/home/:folder/:folderId/upload-file",
   upload.single("uploaded_file"),
-  folderController.upload_to_folder_post,
+  fileController.upload_file_to_folder_post,
 );
 
 // ADD FOLDER ROUTE (POST)
@@ -118,16 +118,16 @@ router.post(
 // FILE DETAIL ROUTE (GET)
 router.get(
   "/home/:folder/:folderId?/:fileName?/details",
-  folderController.file_detail,
+  fileController.file_detail,
 );
 
 // FILE DETAIL PAGE (DELETE POST)
 router.post(
   "/home/:folder/:folderId?/:fileName?/details",
-  folderController.file_delete,
+  fileController.file_delete,
 );
 
 // FILE DOWNLOAD ROUTE (GET)
-router.get("/download/:fileName", folderController.download_file_get);
+router.get("/download/:fileName", fileController.download_file_get);
 
 module.exports = router;
