@@ -6,16 +6,32 @@
     <title>Detail</title>
   </head>
   <body>
-    <h1>File Name</h1>
+    <h1><%=file.name %></h1>
     <ul>
-      <li><a href="">Folder</a></li>
-      <li>Size</li>
-      <li>Link</li>
-      <li>Upload Date</li>
+      <li>Folder: <%=file.folder.name %></li>
+      <li>Size: <%=file.size %> bytes</li>
+      <li>
+        Link: <a href="<%=file.link %>" target="_blank"><%=file.link %></a>
+      </li>
+      <li>Upload Date: <%=file.uploadTime %></li>
     </ul>
-    <form action="" method="POST">
-      <input type="hidden" name="thisFile" value="" />
-      <button type="submit">Delete</button>
+    <form
+      action=""
+      method="POST"
+      id="file_delete_form"
+      onsubmit=" return confirmFileDeletion()"
+    >
+      <input type="hidden" name="thisFile" value="<%=file.name %>" />
+      <button type="submit" id="file-delete-submit-btn">Delete</button>
     </form>
+    <script>
+      function confirmFileDeletion() {
+        const confirmation = confirm(
+          "Are you sure you want to delete this file?",
+        );
+
+        return confirmation;
+      }
+    </script>
   </body>
 </html>
