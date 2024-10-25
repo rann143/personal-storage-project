@@ -57,20 +57,23 @@ async function uploadFile(filepath, folderId, fileName) {
 
   try {
     const uploadResult = await cloudinary.uploader.upload(filepath);
-    const currentTime = new Date().toLocaleString();
-    const newFile = await q.createFile(
-      fileName,
-      uploadResult.secure_url,
-      uploadResult.bytes,
-      uploadResult.public_id,
-      currentTime,
-      folder,
-    );
-    // If error uploading to database, remove file from cloudinary
-    if (newFile === undefined)
-      return await cloudinary.uploader.destroy(uploadResult.public_id, {
-        invalidate: true,
-      });
+    try {
+      const currentTime = new Date().toLocaleString();
+      const newFile = await q.createFile(
+        fileName,
+        uploadResult.secure_url,
+        uploadResult.bytes,
+        uploadResult.public_id,
+        currentTime,
+        folder,
+      );
+      return newFile;
+    } catch (databaseError) {
+      // If database upload fails, delete the uploaded file from Cloudinary
+      await cloudinary.uploader.destroy(uploadResult.public_id);
+      console.log("Cleaned up Cloudinary file after error:", databaseError);
+      throw databaseError; // Re-throw the error if you want to handle it upstream
+    }
   } catch (error) {
     console.log(error);
   }
