@@ -33,6 +33,7 @@ model File {
   name        String  
   link        String  
   size        Int
+  publicId    String
   uploadTime  String
   folder      Folder  @relation(fields: [folderId], references: [id])
   folderId    Int     
