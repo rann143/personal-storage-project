@@ -140,6 +140,7 @@ async function createFile(name, link, size, publicId, uploadTime, folderId) {
     });
   } catch (err) {
     console.error(err);
+    throw err;
   }
 }
 
