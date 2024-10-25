@@ -148,6 +148,12 @@ exports.selected_folder_update_put = [
 
 exports.selected_folder_delete_post = asyncHandler(async (req, res, next) => {
   console.log(req.body.folder);
-  await q.deleteFolder(req.body.folder, req.session.passport.user);
-  res.redirect("/home");
+  const filesInFolder = await q.getAllFilesInFolder(req.params.folderId);
+  console.log(filesInFolder);
+  if (filesInFolder.length) {
+    res.json({ message: "Must remove files before deleting folder" });
+  } else {
+    await q.deleteFolder(req.body.folder, req.session.passport.user);
+    res.redirect("/home");
+  }
 });
