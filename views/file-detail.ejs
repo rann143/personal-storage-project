@@ -15,6 +15,10 @@
       </li>
       <li>Upload Date: <%=file.uploadTime %></li>
     </ul>
+    <form action="/download/<%= file.name %>" method="GET">
+      <input type="hidden" name="myFile" value="<%= file.link %>" />
+      <button type="submit">Download</button>
+    </form>
     <form
       action=""
       method="POST"
