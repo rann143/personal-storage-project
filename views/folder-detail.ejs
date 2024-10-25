@@ -38,6 +38,7 @@
           <% files.forEach((file) => { %>
             <li>
               <a href="<%= file.link %>" target="_blank"><%= file.name %></a> 
+              </br>
               <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/<%= file.name %>/details" >Details</a> 
               <form action="/download/<%= file.name %>" method="GET"> 
                 <input type="hidden" name="myFile" value="<%= file.link %>"> 
