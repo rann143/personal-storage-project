@@ -55,6 +55,7 @@ async function uploadFile(filepath, folderId, fileName) {
       fileName,
       uploadResult.secure_url,
       uploadResult.bytes,
+      uploadResult.public_id,
       currentTime,
       folder,
     );
