@@ -19,8 +19,15 @@ exports.file_detail = asyncHandler(async (req, res, next) => {
 exports.file_delete = asyncHandler(async (req, res, next) => {
   console.log(req.body.thisFile);
   const folderId = parseInt(req.params.folderId);
+  const currentFile = await q.getFileDetail(req.body.thisFile, folderId);
+
+  // Remove from cloudinary
+  await cloudinary.uploader.destroy(currentFile.publicId, { invalidate: true });
+
+  //Remove from database
   await q.deleteFile(req.body.thisFile, folderId);
-  res.redirect("/home");
+  res.status(200).json({ message: "File deleted successfully" });
+  //   res.redirect("/home");
 });
 
 exports.upload_file_to_folder_post = asyncHandler(async (req, res, next) => {
@@ -59,8 +66,11 @@ async function uploadFile(filepath, folderId, fileName) {
       currentTime,
       folder,
     );
-    console.log(uploadResult);
-    console.log(newFile);
+    // If error uploading to database, remove file from cloudinary
+    if (newFile === undefined)
+      return await cloudinary.uploader.destroy(uploadResult.public_id, {
+        invalidate: true,
+      });
   } catch (error) {
     console.log(error);
   }
