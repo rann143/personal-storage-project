@@ -31,6 +31,10 @@ exports.file_delete = asyncHandler(async (req, res, next) => {
 });
 
 exports.upload_file_to_folder_post = asyncHandler(async (req, res, next) => {
+  if (!req.file) {
+    return res.send("Select a file to submit");
+  }
+
   const fileExists = await q.getFileDetail(
     req.file.originalname,
     req.params.folderId,
