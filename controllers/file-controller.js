@@ -31,6 +31,14 @@ exports.file_delete = asyncHandler(async (req, res, next) => {
 });
 
 exports.upload_file_to_folder_post = asyncHandler(async (req, res, next) => {
+  const fileExists = await q.getFileDetail(
+    req.file.originalname,
+    req.params.folderId,
+  );
+  if (fileExists) {
+    return res.send("This folder already contains a file with this name");
+  }
+
   if (req.file.path || req.file.path !== "undefined") {
     await uploadFile(req.file.path, req.params.folderId, req.file.originalname);
   } else {
@@ -64,10 +72,11 @@ async function uploadFile(filepath, folderId, fileName) {
       // If database upload fails, delete the uploaded file from Cloudinary
       await cloudinary.uploader.destroy(uploadResult.public_id);
       console.log("Cleaned up Cloudinary file after error:", databaseError);
-      throw databaseError; // Re-throw the error if you want to handle it upstream
+      throw databaseError; // Re-throw the error to handle it upstream
     }
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
 
