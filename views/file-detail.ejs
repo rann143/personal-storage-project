@@ -6,8 +6,9 @@
     <title>Detail</title>
   </head>
   <body>
-    <h1><%=file.name %></h1>
+    <h1>Your File Details</h1>
     <ul>
+      <li>File Name: <%=file.name %></li>
       <li>Folder: <%=file.folder.name %></li>
       <li>Size: <%=file.size %> bytes</li>
       <li>
@@ -15,6 +16,7 @@
       </li>
       <li>Upload Date: <%=file.uploadTime %></li>
     </ul>
+    <a href="/home/<%=file.folder.name %>/<%=file.folder.id %>">Return</a>
     <form action="/download/<%= file.name %>" method="GET">
       <input type="hidden" name="myFile" value="<%= file.link %>" />
       <button type="submit">Download</button>

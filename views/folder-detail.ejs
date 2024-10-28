@@ -37,9 +37,9 @@
           <ul>
           <% files.forEach((file) => { %>
             <li>
-              <a href="<%= file.link %>" target="_blank"><%= file.name %></a> 
+              <span>File: <a href="<%= file.link %>" target="_blank"><%= file.name %></a> </span>
               </br>
-              <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/<%= file.name %>/details" >Details</a> 
+              <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/<%= file.name %>/details" >File Details</a> 
               <form action="/download/<%= file.name %>" method="GET"> 
                 <input type="hidden" name="myFile" value="<%= file.link %>"> 
                 <button type="submit">Download</button>
@@ -48,8 +48,8 @@
           <% }); %>
           </ul>
           <% } %>
-        <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/update">Edit</a>
-        <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/upload-file">Upload File</a>
+        <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/upload-file">Upload File</a> </br>
+        <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/update">Edit Folder</a>
       </div>
     </div>
 
