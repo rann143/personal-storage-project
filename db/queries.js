@@ -171,11 +171,12 @@ async function getAllFilesInFolder(folderId) {
 }
 
 async function getFileDetail(fileName, folderId) {
+  const id = Number(folderId);
   const file = await prisma.file.findUnique({
     where: {
       fileUnique: {
         name: fileName,
-        folderId: folderId,
+        folderId: id,
       },
     },
     include: {
