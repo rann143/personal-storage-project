@@ -26,12 +26,11 @@ exports.file_delete = asyncHandler(async (req, res, next) => {
 
   //Remove from database
   await q.deleteFile(req.body.thisFile, folderId);
-  res.status(200).json({ message: "File deleted successfully" });
-  //   res.redirect("/home");
+  // res.status(200).json({ message: "File deleted successfully" });
+  res.redirect(`/home/${req.params.folder}/${req.params.folderId}`);
 });
 
 exports.upload_file_to_folder_post = asyncHandler(async (req, res, next) => {
-  console.log(req.file);
   if (req.file.path || req.file.path !== "undefined") {
     await uploadFile(req.file.path, req.params.folderId, req.file.originalname);
   } else {
@@ -47,13 +46,6 @@ exports.upload_file_to_folder_post = asyncHandler(async (req, res, next) => {
 // Function use in upload_file_to_folder_post function
 async function uploadFile(filepath, folderId, fileName) {
   const folder = Number(folderId);
-  // Config
-  cloudinary.config({
-    secure: true,
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
 
   try {
     const uploadResult = await cloudinary.uploader.upload(filepath);
