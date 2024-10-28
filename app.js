@@ -55,6 +55,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Configure Cloudinary
+cloudinary.config({
+  secure: true,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 // ROUTES
 app.use("/", indexRouter);
 
