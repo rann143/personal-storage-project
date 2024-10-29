@@ -8,50 +8,69 @@
   </head>
   <body>
     <h1><%= user.username %>, Welcome to Your Personal Storage</h1>
-    <div class="container">
-      <div class="folders-section">
-        <div class="folder-list">
-          <h2>Folders</h2>
-          <% if (folders) { %>
-          <ul>
-          <% folders.forEach((folder) => { %>
-            <li><a href="/home/<%= folder.name %>/<%= folder.id %>"><%= folder.name %></a></li>
-          <% }); %>
-          </ul>
-          <% } %>
-        </div>
-        <form method="POST" class="add-folder-form">
-          <label for="folder-name-input"><strong>Add Folder:</strong></label>
-          <input
-            type="text"
-            name="folder_name"
-            id="folder-name-input"
-            placeholder="Folder Name"
-          />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
+    
       <div class="folder-contents">
         <h2><%= selectedFolder.name%></h2>
+        <div class="upload-div">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+          </svg>
+            <a class="uploadform-link" href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/upload-file">Upload File</a> 
+        </div>
+        <div class="editfolder-link-div">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <!-- Pen body -->
+              <path 
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" 
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <!-- Edit line decoration -->
+              <path 
+                d="M15 5L19 9" 
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+          </svg>
+            <a class="editfolder-link" href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/update">Edit Folder</a>
+        </div>
+        
         <% if (files) { %>
-          <ul>
+          <div class="file-list">
           <% files.forEach((file) => { %>
-            <li>
+            <div class="file-item">
               <span>File: <a href="<%= file.link %>" target="_blank"><%= file.name %></a> </span>
-              </br>
               <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/<%= file.name %>/details" >File Details</a> 
               <form action="/download/<%= file.name %>" method="GET"> 
                 <input type="hidden" name="myFile" value="<%= file.link %>"> 
                 <button type="submit">Download</button>
               </form>
-            </li>
+            </div>
           <% }); %>
-          </ul>
+          </div>
           <% } %>
-        <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/upload-file">Upload File</a> </br>
-        <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/update">Edit Folder</a>
+          <div class="home-link-div">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <!-- House shape -->
+              <path 
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+             <a class="home-link" href="/home">Home</a>
+        </div>
+       
       </div>
-    </div>
 
     <br />
     <form method="post" action="/logout">
