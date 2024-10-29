@@ -90,6 +90,13 @@ body {
   gap: 0.5rem;
   font-size: 0.875rem;
   width: 7rem;
+  transition: background-color 200ms;
+}
+
+.upload-div:hover,
+.editfolder-link-div:hover,
+.home-link-div:hover {
+  background-color: #3b74ee;
 }
 
 .uploadform-link,
