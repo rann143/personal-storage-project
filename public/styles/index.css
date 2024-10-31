@@ -141,6 +141,7 @@ body {
 .home-link-div {
   background-color: rgb(255, 211, 154);
   color: black;
+  margin-bottom: 2rem;
 }
 
 .home-link-div:hover {
