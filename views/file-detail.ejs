@@ -3,33 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/index.css" />
     <title>Detail</title>
   </head>
   <body>
     <h1>Your File Details</h1>
-    <ul>
-      <li>File Name: <%=file.name %></li>
-      <li>Folder: <%=file.folder.name %></li>
-      <li>Size: <%=file.size %> bytes</li>
-      <li>
-        Link: <a href="<%=file.link %>" target="_blank"><%=file.link %></a>
-      </li>
-      <li>Upload Date: <%=file.uploadTime %></li>
-    </ul>
-    <a href="/home/<%=file.folder.name %>/<%=file.folder.id %>">Return</a>
-    <form action="/download/<%= file.name %>" method="GET">
-      <input type="hidden" name="myFile" value="<%= file.link %>" />
-      <button type="submit">Download</button>
-    </form>
-    <form
-      action=""
-      method="POST"
-      id="file_delete_form"
-      onsubmit=" return confirmFileDeletion()"
-    >
-      <input type="hidden" name="thisFile" value="<%=file.name %>" />
-      <button type="submit" id="file-delete-submit-btn">Delete</button>
-    </form>
+    <div class="file-detail-container">
+      <div class="file-details-list">
+        <ul>
+          <li><span>File Name:</span> <%=file.name %></li>
+          <li><span>Folder:</span> <%=file.folder.name %></li>
+          <li><span>Size:</span> <%=file.size %> bytes</li>
+          <li>
+            <span>Link:</span>
+            <a href="<%=file.link %>" target="_blank"><%=file.link %></a>
+          </li>
+          <li><span>Upload Date:</span> <%=file.uploadTime %></li>
+        </ul>
+      </div>
+      <form action="/download/<%= file.name %>" method="GET">
+        <input type="hidden" name="myFile" value="<%= file.link %>" />
+        <button class="btn" type="submit">Download</button>
+      </form>
+      <form
+        action=""
+        method="POST"
+        id="file_delete_form"
+        onsubmit=" return confirmFileDeletion()"
+      >
+        <input type="hidden" name="thisFile" value="<%=file.name %>" />
+        <button
+          class="btn delete-btn"
+          type="submit"
+          id="file-delete-submit-btn"
+        >
+          Delete
+        </button>
+      </form>
+      <a href="/home/<%=file.folder.name %>/<%=file.folder.id %>">Return</a>
+    </div>
     <script>
       function confirmFileDeletion() {
         const confirmation = confirm(

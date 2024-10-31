@@ -167,6 +167,7 @@ async function getAllFilesInFolder(folderId) {
     return files;
   } catch (err) {
     console.log(err);
+    throw err;
   }
 }
 

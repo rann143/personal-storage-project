@@ -30,6 +30,18 @@ exports.file_delete = asyncHandler(async (req, res, next) => {
   res.redirect(`/home/${req.params.folder}/${req.params.folderId}`);
 });
 
+exports.upload_file_form_get = asyncHandler(async (req, res, next) => {
+  const folder = await q.getFolderByUniqueConstraint(
+    req.params.folder,
+    req.session.passport.user,
+  );
+
+  res.render("uploadfile-form", {
+    uploadSuccessful: "",
+    folder: folder,
+  });
+});
+
 exports.upload_file_to_folder_post = asyncHandler(async (req, res, next) => {
   if (!req.file) {
     return res.send("Select a file to submit");

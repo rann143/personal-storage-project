@@ -7,55 +7,84 @@
     <title>Home</title>
   </head>
   <body>
-    <h1><%= user.username %>, Welcome to Your Personal Storage</h1>
+    <div class="heading">
+      <h1>My Personal Storage</h1>
+      <p>User: <%=user.username %></p>
+    </div>
     
       <div class="folder-contents">
-        <h2><%= selectedFolder.name%></h2>
-        <div class="upload-div">
+        <div class="folder-name-div">
+          <h2 class="folder-name"><%= selectedFolder.name%></h2>
+           <a class="editfolder-link-div" href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/update">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <!-- Pen body -->
+                <path
+                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <!-- Edit line decoration -->
+                <path
+                  d="M15 5L19 9"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+            </svg>
+          </a>
+        </div>
+
+
+        <a class="upload-div" href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/upload-file">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
           </svg>
-            <a class="uploadform-link" href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/upload-file">Upload File</a> 
-        </div>
-        <div class="editfolder-link-div">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <!-- Pen body -->
-              <path 
-                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" 
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <span class="uploadform-link-text">Upload File</span>
+        </a>
 
-              <!-- Edit line decoration -->
-              <path 
-                d="M15 5L19 9" 
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-          </svg>
-            <a class="editfolder-link" href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/update">Edit Folder</a>
-        </div>
-        
-        <% if (files) { %>
+       
+
+        <% if (files.length) { %>
+          <h2>Files:</h2>
           <div class="file-list">
           <% files.forEach((file) => { %>
-            <div class="file-item">
-              <span>File: <a href="<%= file.link %>" target="_blank"><%= file.name %></a> </span>
-              <a href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/<%= file.name %>/details" >File Details</a> 
-              <form action="/download/<%= file.name %>" method="GET"> 
-                <input type="hidden" name="myFile" value="<%= file.link %>"> 
-                <button type="submit">Download</button>
-              </form>
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <span>File: <a href="<%= file.link %>" target="_blank"><%= file.name %></a> </span>
+                    </div>
+                    
+                    
+                    <form action="/download/<%= file.name %>" method="GET"> 
+                      <input type="hidden" name="myFile" value="<%= file.link %>"> 
+                      <button class="download-btn" type="submit">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <!-- Download arrow -->
+                          <path 
+                              d="M12 15L8 11M12 15L16 11M12 15V3M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              fill="none"
+                          />
+                          </svg>
+                      </button>
+                    </form>
+
+                    <a class="btn file-details-link" href="/home/<%= selectedFolder.name %>/<%= selectedFolder.id %>/<%= file.name %>/details" >More Info</a> 
+                    
+                </div>
             </div>
           <% }); %>
           </div>
           <% } %>
-          <div class="home-link-div">
+
+          <a class="home-link-div" href="/home">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <!-- House shape -->
               <path 
@@ -67,8 +96,8 @@
                 stroke-linejoin="round"
               />
             </svg>
-             <a class="home-link" href="/home">Home</a>
-        </div>
+             <span class="home-link-text">Home</span>
+          </a>
        
       </div>
 

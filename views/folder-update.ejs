@@ -3,34 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/index.css" />
     <title>Update Folder</title>
   </head>
   <body>
     <h1>Edit <%= folder.name%></h1>
-    <form method="POST" class="add-folder-form">
-      <label for="folder-name-input"><strong>Update Folder:</strong></label>
-      <input
-        type="text"
-        name="folder_name"
-        id="folder-name-input"
-        placeholder="Folder Name"
-      />
-      <button type="submit">Submit</button>
-    </form>
-    <form
-      action="/home/<%= folder.name %>/<%= folder.id %>/delete"
-      method="POST"
-      class="add-folder-form"
+    <div class="update-folder-form-container">
+      <form method="POST" class="add-folder-form">
+        <label for="folder-name-input"><strong>Update Folder:</strong></label>
+        <input
+          type="text"
+          name="folder_name"
+          id="folder-name-input"
+          placeholder="Folder Name"
+        />
+        <button class="btn" type="submit">Submit</button>
+      </form>
+      <form
+        action="/home/<%= folder.name %>/<%= folder.id %>/delete"
+        method="POST"
+        class="add-folder-form"
+        onsubmit="return confirmFileDeletion()"
+      >
+        <label for="folder-name-input"><strong>Delete Folder</strong></label>
+        <input
+          type="hidden"
+          name="folder"
+          id="folder-delete-input"
+          value="<%= folder.name %>"
+        />
+        <button class="btn delete-btn" type="submit">Delete Forever</button>
+      </form>
+    </div>
+    <a class="return-btn" href="/home/<%= folder.name %>/<%= folder.id %>"
+      >Return</a
     >
-      <label for="folder-name-input"><strong>Delete Folder:</strong></label>
-      <input
-        type="hidden"
-        name="folder"
-        id="folder-delete-input"
-        value="<%= folder.name %>"
-      />
-      <button type="submit">Delete Forever</button>
-    </form>
-    <a href="/home/<%= folder.name %>/<%= folder.id %>">Return</a>
+
+    <script>
+      function confirmFileDeletion() {
+        const confirmation = confirm(
+          "Are you sure you want to delete this folder?",
+        );
+
+        return confirmation;
+      }
+    </script>
   </body>
 </html>

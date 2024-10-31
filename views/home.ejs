@@ -9,11 +9,11 @@
   <body>
     <div class="heading">
       <h1>My Personal Storage</h1>
-      <p><%=user.username %></p>
+      <p>User: <%=user.username %></p>
     </div>
     
       <div class="folders-container">
-        
+
          <form method="POST" class="add-folder-form">
           <label for="folder-name-input"><strong>Add Folder:</strong></label>
           <input
@@ -25,13 +25,16 @@
           <button type="submit">Submit</button>
         </form>
         <div class="folder-section">
-          <h2>Folders</h2>
-          <% if (folders) { %>
+          
+          <% if (folders.length) { %>
+            <h2>Folders</h2>
           <div class="folder-list">
           <% folders.forEach((folder) => { %>
             <span class="folder-item"><a href="/home/<%= folder.name %>/<%= folder.id %>"><%= folder.name %></a></span>
           <% }); %>
           </div>
+          <% } else { %>
+<h2>Add a folder to start!</h2>
           <% } %>
         </div>
        

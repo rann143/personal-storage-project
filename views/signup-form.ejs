@@ -3,34 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/index.css" />
     <title>Sign Up</title>
   </head>
   <body>
     <h1>Sign Up</h1>
     <br />
-    <form method="POST">
-      <label for="username">Username</label>
-      <input
-        type="text"
-        name="username"
-        id="username-input"
-        value="<%=userInfo ? userInfo.username : '' %>"
-      />
-      <br />
+    <form class="signup-form" method="POST">
+      <div class="input-container">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username-input"
+          value="<%=userInfo ? userInfo.username : '' %>"
+        />
+      </div>
 
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password-input" />
-      <br />
+      <div class="input-container">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password-input" />
+      </div>
 
-      <label for="confirm-password">Confirm Password</label>
-      <input type="password" name="confirm-password" id="confirm-password-input" />
+      <div class="input-container">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" name="confirm-password" id="confirm-password-input" />
+      </div>
 
-      <br />
-      <button type="submit">Submit</button>
+      <button class="btn" type="submit">Submit</button>
     </form>
 
     <br />
-    <a href="/">Home</a>
+    <a href="/">Return</a>
 
     <% if (errors) { %>
     <ul>

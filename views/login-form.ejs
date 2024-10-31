@@ -3,24 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/index.css" />
     <title>Login</title>
   </head>
   <body>
     <h1>Login</h1>
-    <br />
-    <form method="POST">
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username-input" />
-      <br />
+    <form class="login-form" method="POST">
+      <div class="input-container">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username-input" />
+      </div>
 
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password-input" />
-      <br />
+      <div class="input-container">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password-input" />
+      </div>
 
-      <button type="submit">Submit</button>
+      <button class="btn" type="submit">Submit</button>
     </form>
 
-    <br />
-    <a href="/">Home</a>
+    <a class="return-btn" href="/">Return</a>
   </body>
 </html>

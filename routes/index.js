@@ -57,11 +57,7 @@ router.get("/home", checkAuthenticated, folderController.get_all_folders);
 router.get(
   "/home/:folder/:folderId/upload-file",
   checkAuthenticated,
-  function (req, res) {
-    res.render("uploadfile-form", {
-      uploadSuccessful: "",
-    });
-  },
+  fileController.upload_file_form_get,
 );
 
 // UPLOAD FILE ROUTE (POST)
