@@ -41,7 +41,7 @@ body {
   border-radius: 0.25rem;
   background-color: white;
   transition: background-color 200ms;
-  width: 80%;
+  width: 100%;
 }
 
 .file-item {
@@ -52,13 +52,18 @@ body {
 .file-list {
   display: flex;
   flex-direction: column;
+  width: 80%;
   gap: 0.25rem;
 }
 
-.folder-contents,
-.folder-section {
+.folder-contents {
   flex-grow: 1;
   margin: 1rem;
+}
+
+.folder-section {
+  width: 80%;
+  flex-grow: 1;
 }
 
 .add-folder-form {
