@@ -9,6 +9,7 @@ exports.add_folder_post = [
     .trim()
     .escape()
     .isAlphanumeric()
+    .withMessage("Name must be Alpha-numberic characters only")
     .isLength({ min: 1 }),
 
   asyncHandler(async (req, res, next) => {
