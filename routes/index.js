@@ -31,6 +31,10 @@ router.post(
   }),
 );
 
+router.get("/login-failure", function (req, res) {
+  res.render("login-failure", {});
+});
+
 router.post("/logout", (req, res, next) => {
   req.logout((err) => {
     if (err) {
