@@ -31,7 +31,7 @@ body {
   width: 100%;
 }
 
-.folder-item,
+/* .folder-item, */
 .file-item {
   display: flex;
   flex-direction: column;
@@ -46,10 +46,6 @@ body {
 
 .file-item {
   width: 100%;
-}
-
-.folder-item:hover {
-  background-color: rgb(236, 236, 236);
 }
 
 .folder-list,
@@ -168,32 +164,37 @@ body {
   color: black;
 }
 
-.file-card {
+.file-card,
+.folder-item {
   background-color: white;
   border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
   padding: 1rem;
   cursor: pointer;
   transition: background-color 0.2s;
+  width: 80%;
 }
 
-.file-card:hover {
+.file-card:hover,
+.folder-item:hover {
   background-color: #f9fafb;
 }
 
-.file-header {
+.file-header,
+.folder-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
 }
 
-.file-header > * {
+.file-header > *,
+.folder-header > * {
   margin: 0 0.5rem;
 }
 
-.file-info {
+.file-info,
+.folder-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
