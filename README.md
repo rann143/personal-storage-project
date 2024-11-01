@@ -1,7 +1,7 @@
 # Personal Storage Project
 
 Cloud Storage application where you can store, upload, and download files.
-Live: personal-storage-project-production.up.railway.app↗
+  - Live: personal-storage-project-production.up.railway.app↗
 
 **Technologies:**
   - NodeJS/Express Framework
