@@ -9,6 +9,16 @@
   <body>
     <h1>Upload File</h1>
     <form class="upload-file-form" method="POST" enctype="multipart/form-data">
+      <!-- Button instead of drop space for mobile -->
+      <button type="button" class="mobile-upload-btn">
+          <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          Choose File
+      </button>
+
       <div class="upload-area">
         <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -36,12 +46,19 @@
       const dropZone = document.querySelector(".upload-area");
       const fileInput = document.querySelector(".upload-file-input");
       const fileArea = document.querySelector(".selected-file-area");
+      const mobileUploadBtn = document.querySelector(".mobile-upload-btn");
+
+      mobileUploadBtn.addEventListener('click', () => {
+        fileInput.click();
+      });
 
       dropZone.addEventListener('click', () => {
-        fileInput.click();
+        if (window.innerWidth > 768) {  // Only trigger on desktop
+          fileInput.click();
+        }
       })
 
-       // Drag and drop handlers
+      if (window.innerWidth > 768) {// Drag and drop handlers
         dropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropZone.classList.add('drag-over');
@@ -51,7 +68,7 @@
             dropZone.classList.remove('drag-over');
         });
 
-      dropZone.addEventListener('drop', dropHandler)
+      dropZone.addEventListener('drop', dropHandler)}
 
       fileInput.addEventListener('change', handleFile);
 
