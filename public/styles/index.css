@@ -365,10 +365,11 @@ body {
 /* Index Page */
 
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
   background: whitesmoke;
   width: 100%;
+  z-index: 1;
 }
 
 .nav-content {
@@ -624,7 +625,12 @@ footer {
 
   /* Hero section */
   .hero {
-    padding: 4rem 1rem 2rem;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
   }
 
   .hero h1 {
