@@ -1,3 +1,15 @@
+const RateLimit = require("express-rate-limit");
+
+const authLimiter = RateLimit({
+  windowMs: 10 * 60 * 1000, // 15 minutes
+  max: 10, // 10 attempts per IP
+  message: {
+    error: "Too many login attempts. Please try again after 10 minutes.",
+  },
+  standardHeaders: true, // Return rate limit info in headers
+  legacyHeaders: false,
+});
+
 const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
@@ -10,4 +22,5 @@ const checkAuthenticated = (req, res, next) => {
 
 module.exports = {
   checkAuthenticated,
+  authLimiter,
 };
