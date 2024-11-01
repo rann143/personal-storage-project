@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles/index.css" />
+    <script src="/scripts/deleteConfirmation.js" defer></script>
     <title>Detail</title>
   </head>
   <body>
@@ -42,14 +43,5 @@
       </form>
       <a href="/home/<%=file.folder.name %>/<%=file.folder.id %>">Return</a>
     </div>
-    <script>
-      function confirmFileDeletion() {
-        const confirmation = confirm(
-          "Are you sure you want to delete this file?",
-        );
-
-        return confirmation;
-      }
-    </script>
   </body>
 </html>

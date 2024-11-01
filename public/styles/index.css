@@ -574,7 +574,8 @@ footer {
     width: 100%;
   }
 
-  .add-folder-form {
+  .add-folder-form,
+  .delete-folder-form {
     align-items: center;
   }
 

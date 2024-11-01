@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles/index.css" />
+    <script src="/scripts/deleteConfirmation.js" defer></script>
     <title>Update Folder</title>
   </head>
   <body>
@@ -22,7 +23,7 @@
       <form
         action="/home/<%= folder.name %>/<%= folder.id %>/delete"
         method="POST"
-        class="add-folder-form"
+        class="delete-folder-form"
         onsubmit="return confirmFileDeletion()"
       >
         <label for="folder-name-input"><strong>Delete Folder</strong></label>
@@ -38,15 +39,5 @@
     <a class="return-btn" href="/home/<%= folder.name %>/<%= folder.id %>"
       >Return</a
     >
-
-    <script>
-      function confirmFileDeletion() {
-        const confirmation = confirm(
-          "Are you sure you want to delete this folder?",
-        );
-
-        return confirmation;
-      }
-    </script>
   </body>
 </html>
