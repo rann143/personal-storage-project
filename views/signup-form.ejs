@@ -17,17 +17,18 @@
           name="username"
           id="username-input"
           value="<%=userInfo ? userInfo.username : '' %>"
+          required
         />
       </div>
 
       <div class="input-container">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password-input" />
+        <input type="password" name="password" id="password-input" required/>
       </div>
 
       <div class="input-container">
         <label for="confirm-password">Confirm Password</label>
-        <input type="password" name="confirm-password" id="confirm-password-input" />
+        <input type="password" name="confirm-password" id="confirm-password-input" required/>
       </div>
 
       <button class="btn" type="submit">Submit</button>
