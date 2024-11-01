@@ -23,7 +23,7 @@ app.use(compression());
 
 const limiter = RateLimit({
   windowMs: 1 * 60 * 1000,
-  max: 20,
+  max: 60,
 });
 
 app.use(limiter);
