@@ -26,12 +26,7 @@
         <input type="hidden" name="myFile" value="<%= file.link %>" />
         <button class="btn" type="submit">Download</button>
       </form>
-      <form
-        action=""
-        method="POST"
-        id="file_delete_form"
-        onsubmit=" return confirmFileDeletion()"
-      >
+      <form action="" method="POST" id="file_delete_form">
         <input type="hidden" name="thisFile" value="<%=file.name %>" />
         <button
           class="btn delete-btn"

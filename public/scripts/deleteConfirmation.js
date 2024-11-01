@@ -2,13 +2,21 @@ const deleteFolderForm = document.querySelector(".delete-folder-form");
 const deleteFileForm = document.querySelector("#file_delete_form");
 
 if (deleteFolderForm) {
-  deleteFolderForm.addEventListener("onsubmit", () =>
-    confirmDeletion("folder"),
-  );
+  deleteFolderForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (confirmDeletion("folder")) {
+      deleteFolderForm.submit();
+    }
+  });
 }
 
 if (deleteFileForm) {
-  deleteFileForm.addEventListener("onsubmit", () => confirmDeletion("file"));
+  deleteFileForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (confirmDeletion("file")) {
+      deleteFileForm.submit();
+    }
+  });
 }
 
 function confirmDeletion(type) {

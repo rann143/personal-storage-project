@@ -74,7 +74,6 @@ function handleFile(e) {
   fileArea.appendChild(fileItem);
 
   enableSubmit();
-  console.log(`input: ${fileInput.value}`);
 }
 
 // Format file size
