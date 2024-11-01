@@ -1,8 +1,7 @@
 # Personal Storage Project
 
-Currently In Progress...
-
-Will be an application where you can upload & store files.
+Cloud Storage application where you can store, upload, and download files.
+  - Live: https://personal-storage-project-production.up.railway.app
 
 **Technologies:**
   - NodeJS/Express Framework
