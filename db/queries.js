@@ -158,7 +158,14 @@ async function deleteFile(fileName, folderId) {
 }
 
 async function getAllFilesInFolder(folderId) {
+  if (!folderId) {
+    throw new Error("folderId is required");
+  }
+
   const id = Number(folderId);
+  if (isNaN(id)) {
+    throw new Error("folderId must be a valid number");
+  }
   try {
     const files = await prisma.file.findMany({
       where: {
