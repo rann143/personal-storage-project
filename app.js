@@ -1,5 +1,8 @@
 const express = require("express");
 const session = require("express-session");
+const compression = require("compression");
+const helmet = require("helmet");
+const RateLimit = require("express-rate-limit");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const createError = require("http-errors");
 const path = require("path");
@@ -13,6 +16,17 @@ require("dotenv").config();
 require("./auth-config/passport");
 
 const app = express();
+
+app.use(helmet());
+
+app.use(compression());
+
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 20,
+});
+
+app.use(limiter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -43,14 +57,6 @@ app.use(
   }),
 );
 
-// app.use((req, res, next) => {
-//   console.log(req.session);
-//   next();
-// });
-// app.use((req, res, next) => {
-//   console.log(req.params);
-//   next();
-// });
 // PASSPORT
 app.use(passport.initialize());
 app.use(passport.session());
