@@ -129,6 +129,13 @@ body {
   margin: 0.5rem 0;
 }
 
+.file-side-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
 .upload-div:hover,
 .home-link-div:hover {
   background-color: #3b74ee;
@@ -207,6 +214,7 @@ body {
 .file-details-link {
   display: flex;
   font-size: small;
+  width: 60px;
 }
 
 /* Folder-Detail Page End */
