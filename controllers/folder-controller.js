@@ -73,6 +73,7 @@ exports.selected_folder_get = asyncHandler(async (req, res, next) => {
     req.session.passport.user,
   );
   const user = await q.getUserById(req.session.passport.user);
+  console.log(req.params.folderId);
   const files = await q.getAllFilesInFolder(req.params.folderId);
   res.render("folder-detail", {
     folders: folders,
