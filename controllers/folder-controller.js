@@ -8,8 +8,8 @@ exports.add_folder_post = [
   body("folder_name", "must enter folder name")
     .trim()
     .escape()
-    .isAlphanumeric()
-    .withMessage("Name must be Alpha-numberic characters only")
+    .matches(/^[A-Za-z0-9\s]+$/)
+    .withMessage("Name can only include alphanumberic characters")
     .isLength({ min: 1 }),
 
   asyncHandler(async (req, res, next) => {
