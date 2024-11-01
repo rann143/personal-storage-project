@@ -158,10 +158,11 @@ async function deleteFile(fileName, folderId) {
 }
 
 async function getAllFilesInFolder(folderId) {
+  const id = Number(folderId);
   try {
     const files = await prisma.file.findMany({
       where: {
-        folderId: Number(folderId),
+        folderId: id,
       },
     });
     return files;
