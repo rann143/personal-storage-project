@@ -410,7 +410,7 @@ body {
 }
 
 .hero {
-  padding: 8rem 2rem 4rem;
+  padding: 4rem 2rem 4rem;
   flex-grow: 1;
   display: flex;
   justify-content: center;
@@ -454,7 +454,7 @@ footer {
 
 .footer-content {
   max-width: 1200px;
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
