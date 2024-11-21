@@ -1,4 +1,4 @@
-# Personal Storage Project
+# StoreIt
 
 Cloud Storage application where you can store, upload, and download files.
   - Live: https://personal-storage-project-production.up.railway.app
